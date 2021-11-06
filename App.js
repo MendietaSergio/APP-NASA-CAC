@@ -18,12 +18,12 @@ const App = () => {
       Animated.timing(show, {
         toValue: 1, //que el valor valga uno, en un segundo
         duration: 2500,
-        delay: 1000,
+        delay: 2500,
         useNativeDriver: false,
       }),
       Animated.timing(position, {
         toValue: -700, //que el valor valga uno, en un segundo
-        duration: 3000,
+        duration: 5000,
         useNativeDriver: false,
       }),
     ]).start(() => {
@@ -31,8 +31,9 @@ const App = () => {
       Animated.timing(font, {
         toValue: 200, //que el valor valga uno, en un segundo
         duration: 1000,
+        delay: 1000,
         useNativeDriver: false,
-      }).start();
+      }).start(() =>setAnimated(true));
     });
   }, []);
   if (!animated) {
