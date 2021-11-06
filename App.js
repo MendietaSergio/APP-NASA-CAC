@@ -5,9 +5,15 @@ import {
   StyleSheet,
   View,
   Animated,
-  Text,
 } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Home from "./screens/Home";
+import Detail from "./screens/Detail";
+import Rover from "./screens/Rover";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
+const Stack = createNativeStackNavigator();
 const App = () => {
   const [animated, setAnimated] = useState(false);
   const [show] = useState(new Animated.Value(0));
@@ -33,7 +39,7 @@ const App = () => {
         duration: 1000,
         delay: 1000,
         useNativeDriver: false,
-      }).start(() =>setAnimated(true));
+      }).start(() => setAnimated(true));
     });
   }, []);
   if (!animated) {
@@ -62,11 +68,20 @@ const App = () => {
     );
   } else {
     return (
-      <>
-        <View backgroundColor="#DA6363">
-          <Text style={styles.textInicio}>IniciO la aplicación</Text>
-        </View>
-      </>
+      <GestureHandlerRootView style={{flex:1}}>
+        <StatusBar
+          animated={true}
+          backgroundColor="#142950"
+          barStyle="light-content"
+        />
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Home" component={Home} options={{title:"My Rovers"}} />
+            <Stack.Screen name="Detail" component={Detail} options={{title:"Images"}} />
+            <Stack.Screen name="Rover" component={Rover} options={{title:"Add Rover"}} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </GestureHandlerRootView>
     );
   }
 };
